@@ -63,18 +63,23 @@
       function rander(data) {
         musicList = document.querySelector("#list");
         musicList.innerHTML = "";
-        data.forEach((item,key) => {
+        let collectHtml = ['<a href="javascript:;" class="collect">收藏</a>',
+                           '<a href="javascript:;" class="cancelCollect">取消收藏</a>'];
+        data.forEach((item,index) => {
           let li = document.createElement("li");
-          li.innerHTML = `<input type="checkbox" />
+          li.innerHTML = `<input type="checkbox" ${item.checked?'Checked':''} />
                           <span>${item.title}</span>
-                          ${item.collect?<a href="javascript:;" class="collect">收藏</a>:
-            <a href="javascript:;" class="cancelCollect">取消收藏</a>}
+                          ${item.collect?collectHtml[1]:collectHtml[0]}
                           <a href="javascript:;" class="remove">删除</a>`;
           musicList.appendChild(li);
         });
+        // Regist event
       }
-
       rander(data);
+
+
+
+
 }
   </script>
 </body>
