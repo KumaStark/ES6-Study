@@ -20,7 +20,6 @@
         <a href="javascript:;" class="cancelCollect">取消收藏</a>
         <a href="javascript:;" class="remove">删除</a>
       </li>
-
     </ul>
     <footer class="footer">
       <label><input type="checkbox" id="checkAll" />全选/全不选</label>
@@ -59,23 +58,25 @@
           collect: false //是否收藏 true 收藏 false 没有收藏
         }
       ];
-      
-      function rander(data) {
+      // 设置全局变量
+      let idNowAt = 5;
+      // 数据渲染主函数
+      function render(data) {
         musicList = document.querySelector("#list");
         musicList.innerHTML = "";
         data.forEach((item,key) => {
           let li = document.createElement("li");
           li.innerHTML = `<input type="checkbox" />
                           <span>${item.title}</span>
-                          ${item.collect?<a href="javascript:;" class="collect">收藏</a>:
-            <a href="javascript:;" class="cancelCollect">取消收藏</a>}
+                          ${!item.collect?'<a href="javascript:;" class="collect">收藏</a>':'<a href="javascript:;" class="cancelCollect">取消收藏</a>'}
                           <a href="javascript:;" class="remove">删除</a>`;
           musicList.appendChild(li);
         });
       }
-
-      rander(data);
-}
+      render(data);
+      let lis = document.querySelectorAll('#list li');
+      console.log(lis);
+    }
   </script>
 </body>
 
