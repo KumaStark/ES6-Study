@@ -152,10 +152,42 @@
                 gender: '女'
             }
         ];
-        
-        let ageIndex = 2;
-        let genderIndex = 2;
-
+        // 全局变量
+        let indexStorage = {
+            ageIndex:2,
+            genderIndex:2
+        };
+        // 公用深拷贝函数
+        let makeCopy = data=>JSON.parse(JSON.stringify(data));
+        // 公用事件绑定函数
+        let bindOperations = function(btn,index,btns){
+            btn.onclick = ()=>{ // 重要：此处用箭头语法可以使this保持为上层函数中的this值
+                btns.forEach((btn)=>btn.classList.remove("active")); // 清理class标签
+                btn.classList.add("active"); // 设置被点击按钮的class标签
+                console.log(`点击了：${btn.innerHTML} index = ${index} this = ${this}`); // 反馈点击的按钮名称
+                indexStorage[this]=index; // 将所点击按钮的序号赋值给存储变量
+                console.log(indexStorage); // 显示当前全局变量存储情况
+                let newdata = ageSortFn[indexStorage.ageIndex](data); // 通过存储的年龄index排序数据
+                newdata = genderFliterFn[indexStorage.genderIndex](newdata); // 通过存储的性别index筛选数据
+                rander(newdata); // 渲染新数据
+            };
+        }
+        // 公用年龄排序函数
+        let ageSortFn = [data => makeCopy(data).sort((r1, r2) => (r1.age - r2.age)),
+                         data => makeCopy(data).sort((r1, r2) => (r2.age - r1.age)),
+                         data => data];
+        // 公用性别筛选函数
+        let genderFliterFn = [data=>data.filter(item=>item.gender==="男"),
+                              data=>data.filter(item=>item.gender==="女"),
+                              data=>data];
+        // 绑定鼠标点击事件函数
+        let bindEvent = function(){
+            let ageBtns = document.querySelectorAll(".age_sort a");
+            ageBtns.forEach(bindOperations,"ageIndex");
+            let genderBtns = document.querySelectorAll(".gender_show a");
+            genderBtns.forEach(bindOperations,"genderIndex");
+        }
+        // 数据渲染主函数
         function rander(data) {
             let tbody = document.querySelector("tbody");
             tbody.innerHTML = "";
@@ -166,22 +198,10 @@
                                 <th>${item.age}</th>
                                 <th>${item.gender}</th>`;
                 tbody.appendChild(tr);
-            });            
+            });
         }
-
-        rander(data);
-
-        let ageSortFn = [data => data.sort((r1, r2) => (r1.age - r2.age)),
-                         data => data.sort((r1, r2) => (r2.age - r1.age)),
-                         data => data]
-        let ageBtn = document.querySelectorAll(".age_sort a");
-
-
-        
-        console.log(ageBtn);
-
-        JSON.parse(JSON.stringify(data));
-
+        bindEvent(); // 绑定点击事件
+        rander(data); // 渲染数据
     </script>
 </body>
 

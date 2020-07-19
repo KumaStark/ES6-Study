@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+// let const   ->var
+// var a;
+// console.log(a);
+// a = 10;
+// console.log(a);
+// let a = 10;
+// let a = 10;
+// let a = 20;
+// {
+//     let a = 10;
+// }
+// console.log(a);
+// const NAME = "张安";
+// NAME = "李四";
+
+// const obj = {
+//     name:"张三",
+//     age:20,
+// }
+
+// obj = {
+//     name:"张三"
+// }
+// obj.name = "李四";
+// console.log(obj);
+// // 冻结对象；--->深冻结；
+// Object.freeze(obj);
+// obj.name = "王五";
+// console.log(obj);
+
+let obj = {
+    name:"张三",
+    statue:"Checked"
+}
+let { name:myname , statue:mystatue} = obj;
+// 类似于python中的词典，反向复制
+console.log(myname,mystatue);
+
+let arr = [1,2,3,'S'];
+let newArr = [...arr,4];
+console.log(newArr);
+
+// 1.展开数组或者对象；2.类数组转换成数组；
+let set  = new Set([1,2,3,3]);
+console.log(set);
+
+// 箭头语法；1.写法；2.this；
+// const test =  function (){
+//     console.log("test...");
+//     return "value";
+// }
+// const test = ()=>{
+//     return "value";
+// }
+// const test = ()=>"value";
+// let name = "张三";
+// let obj = {
+//     name:name
+// }
+// console.log(obj);
+// let str = "'数据'";
+// // let mystr = "显示的值是：" + str;
+// let mystr = `显示的值是：${str}`;
+// console.log(mystr);
+
+
+// 关于forEach中的thisValue
+let teatArr = [1,2,3];
+let fn = function(item){console.log(item);console.log(this);}
+teatArr.forEach(function(item){console.log(this);},'this 1');
+teatArr.forEach(fn,'this 2');
+teatArr.forEach(()=>console.log(this),'this 3');
+
+</script>
+</html>
