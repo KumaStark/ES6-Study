@@ -60,12 +60,56 @@
       ];
       // 设置全局变量
       let idNowAt = 5;
+      const collectHtml = ['<a href="javascript:;" class="collect">收藏</a>',
+                           '<a href="javascript:;" class="cancelCollect">取消收藏</a>'];
+      const titleSplitSymble = '-';
+      const passcode = '奥利给';
+      // 通用状态切换函数
+      let generalSwitch = (index,indicator) => {data[index][indicator]=!data[index][indicator];render(data);}
+      // 绑定全局功能按键并封装事件绑定函数
+      let chooseAllBtn = document.querySelector('#checkAll');
+      let deleteAllBtn = document.querySelector('#remove');
+      let addNewObjBtn = document.querySelector('#add');
+      let newInputText = document.querySelector('#newInfo');
+      let controlBarEventBinder = () => {
+        chooseAllBtn.onclick = function(){
+          data.forEach(item=>{item.checked=this.checked;render(data);});
+          // data.filter((item)=>{item.checked!=chooseAllBtn.checked}).forEach(item=>{});
+        }
+        deleteAllBtn.onclick = function() {
+          data = data.filter(item=>!item.checked);
+          // chooseAllBtn.checked = false;
+          render(data);
+        }
+        addNewObjBtn.onclick = function() {
+          getTitle = newInputText.value.trim();
+          if(getTitle!=''){titleList = getTitle.split(titleSplitSymble);
+                           if(titleList.length==1){titleList.push(passcode);}
+                           titleList.forEach((wordPrase,index)=>{titleList[index]=titleList[index].trim();});
+                           newtitle = titleList.join(' '+titleSplitSymble+' ');
+                           idNowAt += 1;
+                           newID = idNowAt;
+                           data.push({id:newID,title:newtitle,checked:false,collect:false});
+                           render(data);
+                           chooseAllBtn.checked = false;
+                           newInputText.value='';}
+        }
+      }
+      // 列表项绑定点各击事件函数
+      let listItemEventBinder = (li,index) => {
+        let choosedStatue = li.querySelector('input');
+        choosedStatue.onclick = () => {generalSwitch(index,'checked');
+                                       chooseAllBtn.checked = data.every(item=>item.checked);}
+        let collectSwitch = li.querySelector('.collect');
+        if(!collectSwitch){collectSwitch = li.querySelector('.cancelCollect');}
+        collectSwitch.onclick = () => {generalSwitch(index,'collect');};
+        let deleteBtn = li.querySelector('.remove');
+        deleteBtn.onclick = () => {data.splice(index,1);render(data);}
+      }
       // 数据渲染主函数
       function render(data) {
-        musicList = document.querySelector("#list");
-        musicList.innerHTML = "";
-        let collectHtml = ['<a href="javascript:;" class="collect">收藏</a>',
-                           '<a href="javascript:;" class="cancelCollect">取消收藏</a>'];
+        musicList = document.querySelector('#list');
+        musicList.innerHTML = '';
         data.forEach((item,index) => {
           let li = document.createElement("li");
           li.innerHTML = `<input type="checkbox" ${item.checked?'Checked':''} />
@@ -73,12 +117,14 @@
                           ${item.collect?collectHtml[1]:collectHtml[0]}
                           <a href="javascript:;" class="remove">删除</a>`;
           musicList.appendChild(li);
+          // 注册事件
+          listItemEventBinder(li,index);
         });
-        // Regist event
+        // 如果数据被清空，同时将全选/全不选取消勾选状态
+        if(data.length==0){chooseAllBtn.checked = false;}
       }
+      controlBarEventBinder();
       render(data);
-      let lis = document.querySelectorAll('#list li');
-      console.log(lis);
     }
   </script>
 </body>
