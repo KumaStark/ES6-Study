@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        let passcode = '中国';
+        class Person{
+            constructor(getName){this.name = getName;}
+        }
+        let pp = new Person('Elastic');
+        // pp.getAge();
+
+        import {a as getA} from './a.js';
+        console.log(getA);
+
+        import('./b.js').then(resB=>{console.log(resB);})
+
+        // let resC = await import('./c.js');
+        // console.log(resC);
+    </script>
+</body>
+</html>
