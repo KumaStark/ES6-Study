@@ -74,11 +74,9 @@
       let controlBarEventBinder = () => {
         chooseAllBtn.onclick = function(){
           data.forEach(item=>{item.checked=this.checked;render(data);});
-          // data.filter((item)=>{item.checked!=chooseAllBtn.checked}).forEach(item=>{});
         }
         deleteAllBtn.onclick = function() {
           data = data.filter(item=>!item.checked);
-          // chooseAllBtn.checked = false;
           render(data);
         }
         addNewObjBtn.onclick = function() {
@@ -123,6 +121,7 @@
         // 如果数据被清空，同时将全选/全不选取消勾选状态
         if(data.length==0){chooseAllBtn.checked = false;}
       }
+      // 注册控制条事件
       controlBarEventBinder();
       render(data);
     }
