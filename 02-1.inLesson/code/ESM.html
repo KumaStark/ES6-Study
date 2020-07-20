@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="module">
+    // AMD require.js CMD sea.js
+    // 变量污染；
+    // 导出 export default / export  导入 import.. from ...；
+    // import objs,{a as c,b} from './a.js';
+    // console.log(objs,c,b);
+    // import * as obj from './a.js';
+    // console.log(obj);
+    // import * as obj from './a.js';
+    // ES2020;按需导入；
+    document.onclick = async function(){
+        // import("./a.js").then(res=>{
+        //     console.log(res);
+        // })
+       let res =   await import("./a.js");
+       console.log(res);
+    }
+
+
+
+
+
+
+
+</script>
+</html>

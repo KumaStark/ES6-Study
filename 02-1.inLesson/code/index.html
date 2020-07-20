@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 构造函数模拟类的概念；ES5
+    // function Person(name){
+    //     this.name = name;
+    //     this.age = 20;
+    // }
+
+    // Person.prototype.fn = function(){
+    //     console.log("fn...");
+    // }
+
+    //  ES6类基本写法；
+    // class Person{
+    //     height="178cm";
+    //     constructor(name){
+    //         this.name = name;
+    //         this.age = 20;
+    //     }
+    //     fn(){
+    //         console.log("fn...");
+    //     }
+    // }
+
+    // let zhangsan = new Person("张三");
+    // console.log(zhangsan.name,zhangsan.age,zhangsan.height);
+    // zhangsan.fn();
+    // console.log(typeof Person);
+    // console.log(zhangsan);
+
+    // es5 静态属性；
+    // Person.num = 10;
+
+
+    // 静态成员；（属于类的）
+    // class Person{
+    //     height="178cm";
+    //     static num = 10; //静态属性；
+    //     constructor(name){
+    //         this.name = name;
+    //         this.age = 20;
+    //     }
+    //     fn(){
+    //         console.log("fn...");
+    //     }
+    // }
+    // // 静态属性  不需要实例化；
+    // console.log(Person.num);
+
+
+    // ES2020  私有属性；
+    // class Person{
+    //     #age = 25;  //私有属性；（类内部调用）
+    //     constructor(myname){
+    //         // var _age = 26;  //模拟私有属性；
+    //         this.myname = myname;
+    //         this.height= "178cm";
+    //     }
+    //     // getAge 共有方法 调取私有属性；
+    //     getAge(){
+    //         return this.#age;
+    //     }
+    // }
+
+    // let zhangsan = new Person("张三");
+    // // console.log(zhangsan.#age);
+    // console.log(zhangsan.getAge());
+
+
+    //ES5 继承；
+    // function Dad(height){
+    //     this.name = "张安";
+    //     this.age =50;
+    //     this.height = height;
+    // }
+
+    // function Son(height){
+    //     Dad.call(this,height)
+    // }
+
+    // let newSon = new Son("178cm");
+    // console.log(newSon);
+
+    // ES6: 继承属性及方法；
+
+    // class Dad {
+    //     static num = 10;
+    //     constructor(height) {
+    //         this.name = "张安";
+    //         this.age = 50;
+    //         this.height = height;
+    //     }
+    //     fn(){
+    //         console.log("Dad fn")
+    //     }
+    // }
+
+    // class Son extends Dad{
+    //     constructor(height){
+    //         super(height);
+    //         this.hobby = "篮球";
+    //     }
+    //     fn(){
+    //         super.fn();  //执行父类fn方法；
+    //         console.log("Son fn")
+    //     }
+    // }
+    // console.log(Son.num);
+    // let newSon = new Son("178cm");
+    // console.log(newSon);
+    // newSon.fn();
+
+
+    // ES2020;合并空运算符；
+    // function test(name,age){
+    //      name = name ?? "张三";
+    //      age = age ?? 20;
+    //      console.log(name,age);
+    // }
+    // test("",0);
+
+    // 可选链式操作；ES2020;
+    let obj = {};
+    // console.log(obj.person?.name);
+    
+
+
+
+
+
+
+
+</script>
+
+</html>
