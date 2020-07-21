@@ -7,7 +7,55 @@
 </head>
 <body>
     <script>
+        let objCount = 0;
+        let temp;
+        let EX2 = function(){console.log('fn EX2');}
+        let EX3A = function(){console.log('fn EX3A');}
+        let EX3B = function(){console.log('fn EX3B');}
 
+        function obj(inputValue){
+            this.objt1 = `obj${objCount} attr1`;
+            this.objt2 = `obj${objCount} attr2`;
+            this.obipt = `obj${objCount} input: ${inputValue}`;
+            this.objfn1 = function(){console.log(`obj${objCount} fn1`);} // 有效，只属于实例本身，每个实例的该属性指向不同（===判断为false）
+            temp=this;
+        }
+        obj.prototype.classFn2 = function(){console.log(`obj${objCount} classFn`);}
+        obj.objfnplus = function(){console.log(`obj${objCount} fn+`);} // 无效，无法在未实例化的对象上增加属性
+
+        console.log(typeof obj.prototype); 
+
+        objCount++;
+        let o1 = new obj('first instance');
+        o1.objfnEX = function(){console.log(`obj${objCount} fnSelf`);} // 有效，只属于实例本身
+        o1.objfnEX2 = EX2; // 有效，指向同一对象
+        o1.__proto__.objfnEX3 = EX3A // 有效，类和实例共享
+        o1.__proto__.objfnPLUS = function(){console.log(`obj${objCount} fn+1`);} // 有效，类和实例共享
+
+        objCount++;
+        let o2 = new obj('secound instance');
+        o2.objfnEX = function(){console.log(`obj${objCount} fnSelf`);} // 有效，只属于实例本身
+        o2.objfnEX2 = EX2; // 有效，指向同一对象
+        o2.__proto__.objfnEX3 = EX3B // 有效，类和实例共享(已有属性会被覆盖）
+        o2.__proto__.objfnPLUS = function(){console.log(`obj${objCount} fn+2`);} // 有效，类和实例共享(已有属性会被覆盖)
+
+
+        console.log('obj o1:',o1);
+        console.log('obj o2:',o2);
+        console.log('obj class',obj);
+
+        console.log('o1 proto:',o1.__proto__);
+        console.log('o2 proto:',o2.__proto__);
+        console.log('obj proto:',obj.prototype);
+
+        console.log(o1.__proto__===o2.__proto__);
+        console.log(o1.objfn1===o2.objfn1);
+        console.log(o1.objfnEX===o2.objfnEX);
+        console.log(o1.objfnEX2===o2.objfnEX2);
+        console.log(o1.objfnEX3===o2.objfnEX3);
+
+        console.log('Temp: ',temp); // 实例化时，每次this会被指向新实例化的对象
+        obj.prototype.objfnPLUS(); // 共享属性会被覆盖
 
     </script>
 </body>
