@@ -8,25 +8,25 @@ let game = new Game();
 // console.log(game);
 // 所有的节点
 let eles = {
-    login:{
-        loginView:document.querySelector(".login"),
-        username:document.querySelector(".username"),
-        loginSub:document.querySelector(".sub")
+    login: {
+        loginView: document.querySelector(".login"),
+        username: document.querySelector(".username"),
+        loginSub: document.querySelector(".sub")
     },
-    game:{
-        gameView:document.querySelector(".game"),
-        chioseusername:document.querySelector(".chioseusername"),
-        heroView:document.querySelector(".heroView"),
-        heroShow:document.querySelector(".heroShow"),
-        skinShow:document.querySelector(".skinShow"), // 增加部分
-        skillsView:document.querySelector(".skillsView")
+    game: {
+        gameView: document.querySelector(".game"),
+        chioseusername: document.querySelector(".chioseusername"),
+        heroView: document.querySelector(".heroView"),
+        heroShow: document.querySelector(".heroShow"),
+        skinShow: document.querySelector(".skinShow"), // 增加部分
+        skillsView: document.querySelector(".skillsView")
     }
 }
 
 eles.login.loginSub.onclick = function () {
     let username = eles.login.username.value;
     // console.log(username);
-    if(username){
+    if (username) {
         game.login(username);
         console.log(game);
         // 隐藏登录页面显示游戏页面;
@@ -39,16 +39,16 @@ eles.login.loginSub.onclick = function () {
 }
 
 // 渲染英雄视图；
-function renderHero(heroes){
+function renderHero(heroes) {
     eles.game.heroView.innerHTML = "";
     eles.game.skinShow.innerHTML = ""; // 增加部分
     console.log(heroes);
-    heroes.forEach(hero=>{
-        let heroItem =  document.createElement("div");
+    heroes.forEach(hero => {
+        let heroItem = document.createElement("div");
         heroItem.classList.add("heroItem")
         heroItem.innerHTML = ` <img src="${hero.ico}" /><span>${hero.name}</span>`;
         eles.game.heroView.appendChild(heroItem);
-        heroItem.onclick = function(){
+        heroItem.onclick = function () {
             // 选中英雄呈现；
             eles.game.heroShow.innerHTML = ""; // 增加部分
             let img = document.createElement("img");
@@ -63,9 +63,9 @@ function renderHero(heroes){
     })
 }
 
-function renderSkills(skills){
+function renderSkills(skills) {
     eles.game.skillsView.innerHTML = "";
-    skills.forEach(skill=>{
+    skills.forEach(skill => {
         let img = document.createElement("img");
         img.src = skill.ico;
         eles.game.skillsView.appendChild(img);
