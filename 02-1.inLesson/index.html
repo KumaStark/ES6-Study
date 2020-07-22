@@ -9,18 +9,24 @@
     <script type="module">
         let passcode = '中国';
         class Person{
-            constructor(getName){this.name = getName;}
+            // #nation = 'China';
+            constructor(getName){this.name = getName;this.age=30}
+            getAge(){console.log('age',this.age);}
+            async test(){
+                let resC = await import('./c.js');
+                console.log('resC=',resC.c);
+            }
         }
         let pp = new Person('Elastic');
-        // pp.getAge();
+        console.log('name',pp.name);
+        pp.getAge();
 
         import {a as getA} from './a.js';
-        console.log(getA);
+        console.log('getA=',getA);
 
-        import('./b.js').then(resB=>{console.log(resB);})
+        import('./b.js').then(resB=>{console.log('resB=',resB.b);})
 
-        // let resC = await import('./c.js');
-        // console.log(resC);
+        pp.test()
     </script>
 </body>
 </html>
