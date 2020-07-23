@@ -4,5 +4,6 @@ export default class Player{
     constructor(name){
         this.name = name;
         this.heroes = [new Yase,new Luban];
+        this.selectedHero = null;
     }
 }

@@ -1,5 +1,5 @@
-import hero from '../hero.js';
-export default class Yase extends hero {
+import Hero from '../hero.js';
+export default class Yase extends Hero {
     constructor(){
         super("亚瑟",["yase1","yase2","yase3"],['301660','301661','301662'],['16610','16620','16630']);
     }

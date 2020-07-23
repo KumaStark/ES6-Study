@@ -17,9 +17,14 @@ let eles = {
         gameView: document.querySelector(".game"),
         chioseusername: document.querySelector(".chioseusername"),
         heroView: document.querySelector(".heroView"),
+        skinView: document.querySelector(".skinView"),
         heroShow: document.querySelector(".heroShow"),
         skinShow: document.querySelector(".skinShow"), // 增加部分
-        skillsView: document.querySelector(".skillsView")
+        skillsView: document.querySelector(".skillsView"),
+        heroBtn: document.querySelector(".heroBtn"),
+        heroContainer: document.querySelector(".heroContainer"),
+        skinBtn: document.querySelector(".skinBtn"),
+        skinContainer: document.querySelector(".skinContainer")
     }
 }
 
@@ -35,13 +40,41 @@ eles.login.loginSub.onclick = function () {
         // 修改用户名；
         eles.game.chioseusername.innerHTML = username;
         renderHero(game.player.heroes);
+        bindSwitch();
     }
+}
+
+// 绑定角色选择和皮肤选择切换按钮
+function bindSwitch() {
+    eles.game.heroBtn.onclick = function () {
+        showHeroIcons();
+    }
+    eles.game.skinBtn.onclick = function () {
+        showSkinIcons();
+    }
+}
+
+function showHeroIcons() {
+    eles.game.heroContainer.style.display = 'block';
+    eles.game.heroBtn.classList.add('choosed');
+    eles.game.skinContainer.style.display = 'none';
+    eles.game.skinBtn.classList.remove('choosed');
+}
+
+function showSkinIcons() {
+    eles.game.heroContainer.style.display = 'none';
+    eles.game.heroBtn.classList.remove('choosed');
+    eles.game.skinContainer.style.display = 'block';
+    eles.game.skinBtn.classList.add('choosed');
 }
 
 // 渲染英雄视图；
 function renderHero(heroes) {
     eles.game.heroView.innerHTML = "";
     eles.game.skinShow.innerHTML = ""; // 增加部分
+    eles.game.skinView.innerHTML = "";
+    eles.game.heroBtn.classList.add('choosed');
+    showHeroIcons();
     console.log(heroes);
     heroes.forEach(hero => {
         let heroItem = document.createElement("div");
@@ -50,17 +83,28 @@ function renderHero(heroes) {
         eles.game.heroView.appendChild(heroItem);
         heroItem.onclick = function () {
             // 选中英雄呈现；
-            eles.game.heroShow.innerHTML = ""; // 增加部分
-            let img = document.createElement("img");
-            img.src = hero.ico;
-            eles.game.heroShow.appendChild(img);
-            eles.game.skinShow.innerHTML = ""; // 增加部分
-            let skin = document.createElement("img"); // 增加部分
-            skin.src = hero.skin; // 增加部分
-            eles.game.skinShow.appendChild(skin); // 增加部分
-            renderSkills(hero.skills)
+            setIconShow(hero);
+            setSkinShow(hero);
+            game.player.selectedHero = hero;
+            renderSkills(hero.skills);
+            randerSkins(hero);
+            showSkinIcons();
         }
     })
+}
+
+function setIconShow(hero) {
+    eles.game.heroShow.innerHTML = ""; // 增加部分
+    let img = document.createElement("img");
+    img.src = hero.ico;
+    eles.game.heroShow.appendChild(img);
+}
+
+function setSkinShow(hero) {
+    eles.game.skinShow.innerHTML = ""; // 增加部分
+    let skin = document.createElement("img"); // 增加部分
+    skin.src = hero.skin; // 增加部分
+    eles.game.skinShow.appendChild(skin); // 增加部分
 }
 
 function renderSkills(skills) {
@@ -71,4 +115,20 @@ function renderSkills(skills) {
         eles.game.skillsView.appendChild(img);
     })
 }
-// 作业 ：扩展鲁班类； 拥有三个技能 并且渲染到视图上；
+
+function randerSkins(hero) {
+    eles.game.skinView.innerHTML = "";
+    hero.icoIDs.forEach((icoID,index) => {
+        let skinIcon = document.createElement("div");
+        skinIcon.classList.add("skinItem")
+        skinIcon.innerHTML = ` <img src="${hero.getIco(index)}" /><span>${icoID}</span>`;
+        eles.game.skinView.appendChild(skinIcon);
+        skinIcon.onclick = function () {
+            hero.ico = hero.getIco(index);
+            hero.skin = hero.getSkin(index);
+            setIconShow(hero);
+            setSkinShow(hero);
+            showHeroIcons();
+        }
+    })
+}

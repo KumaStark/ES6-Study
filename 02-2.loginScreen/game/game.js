@@ -1,11 +1,18 @@
 import Player from './player.js';
 
 // 游戏管理类；
-export default class Game{
-    constructor(){
+class Game {
+    constructor() {
         this.player = null;
     }
-    login(name){
+    login(name) {
         this.player = new Player(name);
     }
+}
+let instance = null;
+export default function() {
+    if(!instance){
+        instance = new Game();
+    }
+    return instance;
 }
