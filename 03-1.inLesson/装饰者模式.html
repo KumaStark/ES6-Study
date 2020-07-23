@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    class Yase{
+        constructor(){
+            this.name = "亚瑟"
+        }
+        fire(){
+            console.log("释放技能");
+            // console.log("造成100点伤害");
+        }
+    }
+// 添加需求  释放技能  要造成100点伤害；
+// 1. 继承（扩展新的技能）；2.装饰者（原本功能基础上增强）；
+// class MyYase extends Yase{
+//     // fire(){
+//     //     super.fire();
+//     //     console.log("造成100点伤害");
+//     // }
+//     say(){
+
+//     }
+// }
+
+// let newYase = new MyYase();
+// newYase.fire();
+
+// 装饰者模式；
+const hurt = function(){
+    console.log("造成100点伤害");
+}
+
+// 高阶函数：把函数当成参数传入的函数；
+// const DecoratorFn = function(fn1,fn2){
+//     return function(){
+//         fn1();
+//         fn2();
+//     }
+// }
+// new Function();
+// console.log(Function)
+Function.prototype.DecoratorFn = function(fn){
+    // console.log("??",this)
+    this();
+    fn();
+}
+
+let newYase = new Yase();
+// newYase.fire();
+// let myfn = DecoratorFn(newYase.fire,hurt);
+// myfn();
+newYase.fire.DecoratorFn(hurt);
+// hurt.DecoratorFn();
+
+
+
+</script>
+</html>

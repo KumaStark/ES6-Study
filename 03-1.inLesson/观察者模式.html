@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function fn1(){
+        console.log("fn1");
+    }
+    function fn2(){
+        console.log("fn2");
+    }
+
+    // fn1();
+    // fn2();
+    // document.addEventListener("myevent",fn1);
+    // document.addEventListener("click",fn2);
+    let handle = {};
+    // handle['myevent']  = [];
+    // handle = {myevent:[fn1,fn2]};
+    // 绑定事件；
+    function addEvent(eventName,fn){
+        if(typeof handle[eventName] === 'undefined'){
+            handle[eventName] = [];
+        }
+        handle[eventName].push(fn);
+    }
+
+    function trigger(eventName,...arg){
+        if(typeof handle[eventName]===undefined){
+            return ;
+        }
+        handle[eventName].forEach(fn=>{
+            fn(...arg);
+        })
+    }
+    // 绑定自定义事件
+    addEvent("myevent",fn1);
+    addEvent("myevent",fn2);
+    // console.log(handle);
+    // 触发自定义事件；
+    trigger("myevent");
+
+    
+
+
+
+
+
+
+
+
+</script>
+</html>
