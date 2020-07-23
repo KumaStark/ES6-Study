@@ -7,6 +7,9 @@ class Game {
     }
     login(name) {
         this.player = new Player(name);
+        this.player.heroes.forEach(hero => {
+            hero.trigger('heroInit');
+        });
     }
 }
 let instance = null;

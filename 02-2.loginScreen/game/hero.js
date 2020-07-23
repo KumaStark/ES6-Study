@@ -1,5 +1,8 @@
-export default class Hero {
+import GameEvent from './GameEvent.js'
+
+export default class Hero extends GameEvent {
     constructor(name, icoIDs, skinIDs, skillIDs) {
+        super();
         this.name = name;
         this.icoIDs = icoIDs;
         this.skinIDs = skinIDs;
@@ -7,6 +10,7 @@ export default class Hero {
         this.ico = this.getIco(0);
         this.skin = this.getSkin(0);
         this.skills = this.getSkills();
+        this.addEvent("heroInit", this.init, {heroName:this.name});
     }
     getIco(ID, resSuffix = '.png') {
         let icoLoc = "./sources/heros/";
@@ -29,5 +33,8 @@ export default class Hero {
             });
         })
         return skills;
+    }
+    init(heroName) {
+        console.log(`初始化英雄逻辑=>${heroName}`);
     }
 }
