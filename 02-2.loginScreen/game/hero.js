@@ -34,7 +34,7 @@ export default class Hero extends GameEvent {
         })
         return skills;
     }
-    init(heroName) {
-        console.log(`初始化英雄逻辑=>${heroName}`);
+    init(args) {
+        console.log(`初始化英雄逻辑=>${args.heroName}`);
     }
 }
