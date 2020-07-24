@@ -1,13 +1,12 @@
 export default class MyEvent {
     constructor() {
-        // this.handleID = 0; 
         this.handle = {};
         this.handleArgs = {};
     }
     // 添加事件
     addEvent(eventName, fn, args = {}) {
-        if ((typeof fn === 'undefined')||(typeof fn.name === 'undefined')) {
-            console.log(`无法向自定义事件${eventName}中添加未定义或未命名的函数:`,eval(fn));
+        if ((typeof fn === 'undefined') || (typeof fn.name === 'undefined')) {
+            console.log(`无法向自定义事件${eventName}中添加未定义或未命名的函数:`, eval(fn));
             return;
         }
         if (typeof this.handle[eventName] === 'undefined') {
@@ -19,14 +18,14 @@ export default class MyEvent {
             this.handle[eventName].push(fn);
             this.handleArgs[eventName + '.' + fn.name] = [];
         } else {
-            console.log(`--- 事件${eventName}中已有该函数:`, fn.name);
+            console.log(`--- 事件${eventName}中已有该函数，未新增:`, fn.name);
         }
         let argList = this.handleArgs[eventName + '.' + fn.name];
         if (argList.every(listItem => !this.isObjEqual(args, listItem))) {
-            console.log(`--- 将为${fn.name}函数增加参数:`, args);
+            console.log(`~~~ 将为${fn.name}函数增加参数:`, args);
             argList.push(args);
         } else {
-            console.log(`--- 函数${fn.name}已设置过该参数:`, args);
+            console.log(`~~~ 函数${fn.name}已设置过该参数，未新增:`, args);
         }
     }
     // 触发事件
@@ -50,27 +49,29 @@ export default class MyEvent {
         } else {
             let fnList = this.handle[eventName];
             if (fnList.find(item => item === fn)) {
+                let argList = this.handleArgs[eventName + '.' + fn.name];
                 if (removeAll) {
-                    delete this.handleArgs[eventName + '.' + fn.name];
+                    // 未设置removeAll开关时，默认删除对应函数所有的参数
+                    argList = [];
                     console.log(`已从${eventName}事件中删除${fn.name}函数的所有参数`);
-                    fnList.splice(fnList.findIndex(item => item === fn), 1);
-                    console.log(`已从${eventName}事件中删除${fn.name}函数`);
                 } else {
-                    let argList = this.handleArgs[eventName + '.' + fn.name];
-                    if (argList.find(item => this.isObjEqual(item, args))) {
+                    // 设置removeAll为false时，删除对应函数的对应参数，未指定参数的用默认空对象去匹配
+                    if (argList.find(item => this.isObjEqual(item, args))) { // 查找需要删除的参数对象
                         argList.splice(argList.findIndex(item => this.isObjEqual(item, args)), 1);
                         console.log(`已从${eventName}事件中删除${fn.name}函数的参数:`, args);
-                        if (argList.length <= 0) {
-                            console.log(`${eventName}事件中${fn.name}函数的参数为0个`);
-                            fnList.splice(fnList.findIndex(item => item === fn), 1);
-                            console.log(`已从${eventName}事件中删除${fn.name}函数`);
-                        }
                     } else {
-                        console.log(`${eventName}事件中的${fn.name}函数未配置参数:`, args);
+                        console.log(`无法删除${eventName}事件中${fn.name}函数未配置过的参数:`, args); // 未找到需要删除的参数对象
                     }
                 }
+                if (argList.length <= 0) {
+                    // 如果一个函数的所有参数均被删除，则移除该函数
+                    delete this.handleArgs[eventName + '.' + fn.name];
+                    console.log(`${eventName}事件中${fn.name}函数的参数为0个`);
+                    fnList.splice(fnList.findIndex(item => item === fn), 1);
+                    console.log(`已从${eventName}事件中删除${fn.name}函数`);
+                }
             } else {
-                console.log(`无法删除自定义事件${eventName}中未曾添加的函数:`,eval(fn));
+                console.log(`无法删除${eventName}事件中未曾添加过的函数:`, eval(fn));
             }
         }
     }
