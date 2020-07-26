@@ -34,3 +34,11 @@ myEvent.removeEvent('myevent', fn4);
 console.log('### 验证删除结果 ###');
 myEvent.showEventStatus('myevent'); // 验证作业要求
 myEvent.trigger('myevent'); // 验证作业要求
+
+console.log("### 从myevent事件删除所有函数 ###");
+myEvent.removeEvent("myevent", fn2);
+myEvent.removeEvent("myevent", fn3);
+
+console.log('### 验证删除结果 ###');
+myEvent.showEventStatus('myevent'); // 验证作业要求
+myEvent.trigger('myevent'); // 验证作业要求

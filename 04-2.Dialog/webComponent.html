@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <my-component></my-component> -->
+    <img src="#" is="my-img" />
+</body>
+<script>
+    // console.dir(HTMLElement);
+
+// 自定义组件, 自定义独立元素；
+class MyComponet extends HTMLElement{
+    constructor(){
+        super();
+        // console.log("this",this);
+        this.innerHTML = "<button>按钮</button>";
+    }
+}
+customElements.define("my-component",MyComponet)
+
+// 继承html元素；
+
+class MyImg extends HTMLImageElement{
+    constructor(){
+        super();
+        setTimeout(()=>{
+            this.src = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg"
+        },1000)
+    }
+}
+customElements.define("my-img",MyImg,{
+    extends:"img"
+})
+
+
+</script>
+</html>

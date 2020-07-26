@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <script type="module">
+        import Dialog from "./Dialog.js";
+        let dialog = new Dialog({});
+           
+        // 自定义组件（自定义独立元素）
+        class MyComponent extends  HTMLElement{
+            constructor(){
+                super();
+                console.log("this:",this);
+                this.innerHTML = "<button>按钮</button>";
+            }
+        }
+        customElements.define("my-component",MyComponent);
+    </script>
+    <my-component/>
+</body>
+</html>
