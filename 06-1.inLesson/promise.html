@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 对象；
+    // let p1 = new Promise((resolve,reject)=>{
+    //     // resolve("somevalue");
+    //     reject("err");
+    // });
+    // 一、promise对象 3种状态1.pendding 、resolved --fulfilled、rejected;
+    // console.log(p1);
+    // 二、promise then里的2种参数；onresolved,onjected;
+    // let p1 = new Promise((resolve,reject)=>{
+    //     // resolve("成功");
+    //     reject("错误");
+    // }).then(res=>{
+    //     console.log(res);
+    // },err=>{
+    //     console.log(err);
+    // })
+
+    // 三 then 的三种返还值；  有返还 、 无返还 、返还promose对象 --》 promise对象---》链式操作（then）；
+    // let p1 = new Promise((resolve,reject)=>{
+    //     resolve("成功");
+    //     // reject("错误");
+    // }).then(res=>{
+    //     // return 111;
+    //     return new Promise(resolve=>resolve("返还的值"))
+    // }).then(res=>{
+    //     console.log(res)
+    // }).catch(err=>{
+    //     console.log("catch",err);
+    // })
+    // console.log(p1);
+
+
+    // let p1 = new Promise((resolve,reject)=>{
+    //     setTimeout(()=>{
+    //         // resolve("1111");
+    //         reject("失败")
+    //     },2000)
+    // })
+    // let p2 = new Promise((resolve,reject)=>{
+    //     setTimeout(()=>{
+    //         resolve("222");
+    //         // reject()
+    //     },1000)
+    // })
+    // 所有promise对象要执行成功
+    // Promise.all([p1,p2]).then(res=>{
+    //     console.log(res);
+    // })
+
+    // Promise.race([p1,p2]).then(res=>{
+    //     console.log(res)
+    // })
+    
+    // finally
+    // p1.then(res=>{
+    //     console.log(res);
+    // }).finally(()=>{
+    //     console.log("执行了")
+    // })
+
+//    let  p =   Promise.resolve("成功");
+//    console.log(p);
+//    let  p =   Promise.reject("失败");
+//    console.log(p);
+
+
+
+
+
+
+</script>
+</html>

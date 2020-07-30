@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// 同步   异步 阻塞 非阻塞；
+// js 同步阻塞 异步非阻塞；
+//单线程  主线程（队列） ---> 异步线程(队列)；
+function asyncFn1(){
+    // 异步函数；
+    setTimeout(()=>{
+        console.log("asyncFn1");
+    })
+}
+asyncFn1();
+
+console.log(111);
+function test(){
+    console.log("test");
+}
+test();
+
+function asyncFn2(){
+    // 异步函数；
+    setTimeout(()=>{
+        console.log("asyncFn2");
+    })
+}
+asyncFn2();
+console.log(222);
+
+
+
+
+
+</script>
+</html>

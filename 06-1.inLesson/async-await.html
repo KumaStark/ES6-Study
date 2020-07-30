@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ES7；同步写法 改写异步；基于promise；
+    const p1 = function myp1() {
+        return new Promise((resolve,reject) => {
+            setTimeout(() => {
+                resolve("p1");
+                // reject("错误")
+            }, 1000)
+        })
+    }
+
+    const p2 = function myp2() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve("p2");
+            }, 1000)
+        })
+    }
+    
+    // res 是promise对象的promiseValue值；
+    // 链式调用；
+    // p1().then(res=>{
+    //     console.log(res);
+    //     return p2(); 
+    // }).then(res=>{
+    //     console.log(res);
+    // }).catch(err=>{
+    //     console.log(err);
+    // })
+
+    // async await；await 后面要是promise对象；
+    async function asyncFn() {
+        try {
+            let res1 = await p1();
+            console.log(res1);
+            let res2 = await p2();
+            console.log(res2);
+        } catch (err) {
+            console.log("??",err);
+        }
+
+    }
+    asyncFn();
+
+
+
+
+
+</script>
+
+</html>

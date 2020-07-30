@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 异步问题；
+    function asyncFn(cb){
+        setTimeout(()=>{
+            console.log("asyncFn");
+            // if(cb){
+            //     cb();
+            // }
+            cb && cb();  //  console.log("somevalue");
+        })
+    }
+    asyncFn(function(){
+        // 异步执行完成之后的代码；
+        console.log("somevalue");
+    });
+    // 异步执行完之后  在执行一些其他的逻辑；
+    // 回调；callback
+    // console.log("somevalue");
+
+
+
+</script>
+</html>

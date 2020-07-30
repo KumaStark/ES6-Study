@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box">
+    </div>
+</body>
+<script>
+    function move(ele,target,direction,cb){
+        let start = parseInt(window.getComputedStyle(ele,null)[direction]);
+        // console.log(start);
+        let num = (target -start) / Math.abs((target -start)); // 1 、-1；
+        let speed = 5 * num;
+        start += speed;
+        if(Math.abs(target-start)<5){
+            // console.log("运动完成");
+            cb && cb();
+        }else{
+            setTimeout(()=>{
+                ele.style[direction] = start + "px";
+                move(ele,target,direction,cb);
+            },20)
+        }
+    }
+
+    let mydiv = document.querySelector(".box");
+    // 回调地狱；
+    move(mydiv,300,"left",function(){
+        // console.log("运动完成");
+        move(mydiv,300,"top",function(){
+            // console.log("运动完成");
+            move(mydiv,0,"left",function(){
+                move(mydiv,0,"top",function(){
+                    console.log("运动完成");
+                })
+            })
+        });
+    });
+    // move(mydiv,300,"top");
+
+    // 作业： 在老师的代码基础上通过 async 及await 改写 方块函数调用；达到原本方块运动效果；
+    
+
+</script>
+</html>
