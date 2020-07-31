@@ -20,8 +20,9 @@
             this.objfn1 = function(){console.log(`obj${objCount} fn1`);} // 有效，只属于实例本身，每个实例的该属性指向不同（===判断为false）
             temp=this;
         }
-        obj.prototype.classFn2 = function(){console.log(`obj${objCount} classFn`);}
-        obj.objfnplus = function(){console.log(`obj${objCount} fn+`);} // 无效，无法在未实例化的对象上增加属性
+        obj.prototype.classFn2 = function(){console.log(`obj${objCount} classFn`);};
+        obj.attrAddFailed1 = function(){console.log(`obj${objCount} fn+`);}; // 无效，无法在未实例化的构造函数对象上增加属性
+        obj.attrAddFailed2 = "无法添加"; // 无效，无法在未实例化的构造函数对象上增加属性
 
         console.log(typeof obj.prototype); 
 
@@ -48,11 +49,11 @@
         console.log('o2 proto:',o2.__proto__);
         console.log('obj proto:',obj.prototype);
 
-        console.log(o1.__proto__===o2.__proto__);
-        console.log(o1.objfn1===o2.objfn1);
-        console.log(o1.objfnEX===o2.objfnEX);
-        console.log(o1.objfnEX2===o2.objfnEX2);
-        console.log(o1.objfnEX3===o2.objfnEX3);
+        console.log(o1.__proto__===o2.__proto__);   // true
+        console.log(o1.objfn1===o2.objfn1);         // false
+        console.log(o1.objfnEX===o2.objfnEX);       // false
+        console.log(o1.objfnEX2===o2.objfnEX2);     // true
+        console.log(o1.objfnEX3===o2.objfnEX3);     // true
 
         console.log('Temp: ',temp); // 实例化时，每次this会被指向新实例化的对象
         obj.prototype.objfnPLUS(); // 共享属性会被覆盖
