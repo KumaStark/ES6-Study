@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>原生的promise</h1>
+</body>
+<script>
+    // setTimeout(() => {
+    //     console.log("settimeout");
+    // });
+    // promise对象 三种状态；pending、fulfilled、rejected
+    // Promise 是微任务；
+    // let p = new Promise((resolve,reject)=>{
+    //     // setTimeout(() => {
+    //         // resolve("resolveValue")
+    //     // }, 1000);
+    //     reject("rejectValue");
+    // })
+    // console.log(p);
+
+    //promise 对象有then方法；// 2个参数；onResolved、onRejected;
+    // p.then(res=>{
+    //     console.log("onResolved",res);
+    // },err=>{
+    //     console.log("onRejected",err);
+    // })
+    // 多个then
+    // p.then(res=>{
+    //     console.log("111",res);
+    // })
+    // p.then(res=>{
+    //     console.log("222",res);
+    // })
+
+    // Promise执行顺序问题；
+
+    // p.then(res=>{
+    //     console.log(res);
+    // })
+    
+
+    // 三种返还值；
+    // let res =  p.then(res=>{
+    //     console.log(res);
+    //     // return 111;
+    //     return new Promise(resolve=>{
+    //         resolve("返还的值");
+    //     })
+    // }).then(res=>{
+    //     console.log(res);
+    // })
+    // console.log(res);
+
+    // 方法；catch
+        // p.then(res=>{
+        //     console.log(res)
+        // }).catch(e=>{
+        //     console.log("err",e);
+        // })
+
+
+// all
+let p1 = new Promise(reslove=>{
+    reslove(11);
+})
+// let p2 = new Promise(reslove=>{
+//     reslove(22);
+// })
+
+// Promise.all([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+
+// let p = new Promise(resolve=>{
+//     reslove("success"); 
+// })
+
+// Promise.resolve("success");
+
+// 作业：在老师的代码基础上 完善finally方法；
+// 要求：
+// finally :不管成功或者失败 都会执行；
+// 注意：不是立即执行；  --》在队列里执行；
+let p = new Promise((reslove,reject)=>{
+    setTimeout(() => {
+        reslove("success");
+    }, 1000);
+    // reject("err")
+})
+p.then(res=>{
+    console.log(res);
+}).finally(()=>{
+console.log("结束了");
+})
+
+// Promise.race([p1,p2]).then(res=>{
+
+// })
+
+
+</script>
+</html>

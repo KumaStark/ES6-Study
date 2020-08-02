@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./KPromise.js"></script>
+</head>
+
+<body>
+    <h1>自己封装的KPromise</h1>
+</body>
+<script>
+    // 宏任务 及 微任务；
+    //  setTimeout(() => {
+    //     console.log("settimeout");
+    // });
+    // KPromise  ---》宏任务； --
+    // 一、 三种状态 搞定；
+    // promise对象 三种状态；pending、fulfilled、rejected
+    // let p = new KPromise((resolve, reject) => {
+    //     // resolve()
+    //     // setTimeout(() => {
+    //         // 调用onResolved
+    //         resolve("resolveValue")   //设置状态
+    //     // }, 3000)
+    //     // reject("rejectValue");
+    // })
+    
+    // 二、2个参数；
+    // 保存onResolved
+    // 先调用  在 保存； ---》
+    // console.log(p);
+
+    // p.then(res => {
+    //     console.log("onResolved", res);
+    // }, err => {
+    //     console.log("onRejected", err);
+    // })
+
+    // 三、2个问题；1.多个then调用问题（注意不是链式调用）队列;2.KPromise执行顺序问题；（宏任务、微任务相关）；
+    // 1.多个then调用问题
+    // p.then(res=>{
+    //     console.log("111",res);
+    // })
+    // p.then(res=>{
+    //     console.log("222",res);
+    // })
+    // 2.KPromise执行顺序问题
+    // ---》宏任务； --》微任务；
+        // p.then(res=>{
+        //     console.log(res);
+        // })
+
+        // 消息队列 [1-->[](新加 微任务 宏任务6),2---[],3---[],4--[],5 , 6]
+        // 宏任务 新添加的 任务 微任务 早于宏任务执行；
+
+        // 微任务 ： promise  mutationObserver 、process.nextTick
+        // settimeout  setInterval;
+       
+
+        // function test(){
+        //     for(let i=0;i<6000;i++){
+        //         console.log(i);
+        //     }
+        //     setTimeout(() => {
+        //         console.log("settimeout")
+        //     }, 1000);
+        // }
+        // test();
+
+        //四、 then 链式调用（返还一个实例）；（then的返还值；）； 判断返还KPromise的情况；
+        // 
+
+    //     let p = new KPromise((resolve,reject)=>{
+    //         resolve("success");
+    //     })
+    //    let res =  p.then(res=>{
+    //         console.log(res);
+    //         // return 111;
+    //         return new KPromise(resolve=>{
+    //             resolve("返还的值");
+    //         })
+    //     })
+    //     // console.log(res);
+    //     res.then(res=>{
+    //         console.log(res);
+    //     })
+
+
+    // 五  、周边方法；
+    // 方法；catch
+    // let p = new KPromise((resolve,reject)=>{
+    //     // setTimeout(() => {
+    //         // resolve("resolveValue")
+    //     // }, 1000);
+    //     reject("rejectValue");
+    // })
+
+    // p.then(res=>{
+    //         console.log(res)
+    //     }).catch(e=>{
+    //         console.log("err",e);
+    //     })
+
+    let p1 = new KPromise(resolve=>{
+        setTimeout(() => {
+            resolve(111);
+        }, 2000);
+    })
+    let p2 = new KPromise(resolve=>{
+        setTimeout(() => {
+            resolve(222);
+        }, 1000);
+    })
+    KPromise.race([p1,p2]).then(res=>{
+        console.log("---",res);
+    })
+
+
+
+
+
+
+
+</script>
+
+</html>
