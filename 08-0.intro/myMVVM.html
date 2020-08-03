@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./MVVM.js"></script>
+</head>
+<body>
+    <h1>
+        自己的MVVM
+    </h1>
+    <div id="app">
+        {{message1}}
+        <div>
+            {{message2}}
+            <div>
+                {{message3}}
+                <br>测试输入<input type="text" v-model="inputText1"/>【头】{{inputText1}}【尾】
+            </div>
+            <div v-html="insertHTML">{{insertHTML}}</div>
+        </div>
+    </div>
+    <script>
+        let vm = new KVue({
+            el:"#app",
+            data:{
+                message1:"Message数据1",
+                message2:"Message数据2",
+                message3:"Message数据3",
+                inputText1:'请输入文本...',
+                insertHTML:'<h2>需要解析的HTML内容</h2>'
+            }
+        });
+        setTimeout(()=>{
+            vm.$data.message1 = "起床了！起床了！";
+        },2000);
+    </script>
+</body>
+</html>
