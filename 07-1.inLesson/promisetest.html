@@ -94,8 +94,8 @@ let p = new Promise((reslove,reject)=>{
 })
 p.then(res=>{
     console.log(res);
-}).finally(()=>{
-console.log("结束了");
+}).finally((fv)=>{
+console.log("结束了",fv);
 })
 
 // Promise.race([p1,p2]).then(res=>{
