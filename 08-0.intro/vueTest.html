@@ -13,14 +13,20 @@
     </h1>
     <div id="app">
         {{message}}
+        <div v-html="myHtml"></div>
+        <div v-text="myHtml"></div>
     </div>
     <script>
         let vm = new Vue({
             el:"#app",
             data:{
                 message:"数据",
+                myHtml:"<h2>Hello World !</h2>"
             }
         })
+        setTimeout(() => {
+        vm.myHtml = "<img src='http://sc.lvxingsh.top/static/picture/59-1912022142422.jpg'/>"
+        }, 3000);
     </script>
 </body>
 </html>

@@ -53,7 +53,7 @@ class KVue {
                         console.log(`${$1}的watcher收到了新信息:`, newMessage);
                         // node.textContent = newMessage; // 注意：这里的写法不是很恰当，但是对于文本只有{{}}标记的情况，可以使用
                         let newReg = new RegExp(this.$data[$1]);
-                        // 如果头尾都有值，例如【头】{{inputText1}}【尾】结构，正则表达式替换单个英文字符时容易出现Bug
+                        // 如果头尾都有值，例如【头】{{inputText1}}【尾】结构，用RegExp创建单个半角字符或者‘.’符号的正则表达式时容易出现Bug
                         node.textContent = node.textContent.replace(newReg, newMessage);
                     })
                     node.textContent = textContent.replace(reg, this.$data[$1]);
@@ -65,16 +65,30 @@ class KVue {
                 [...nodeAttribs].forEach(attr => {
                     if (attr.name === 'v-model') {
                         // 文本框可以不需要添加Watcher，原本就具有编辑存储显示的功能
-                        // new Watcher((newMessage)=>{
-                        //     console.log(`${attr.value}的watcher收到了新信息:`,newMessage);
-                        //     node.value = newMessage;
-                        // })
+                        // 但是如果存在外部函数会改变文本框的值，那么还是需要添加watcher的
+                        new Watcher((newMessage)=>{
+                            console.log(`${attr.value}的watcher(${attr.name})收到了新信息:`,newMessage);
+                            node.value = newMessage;
+                        })
                         node.value = this.$data[attr.value];
                         addEventListener('input', e => {
                             this.$data[attr.value] = e.target.value;
                         })
                     } else if (attr.name === 'v-html') {
-
+                        new Watcher((newMessage)=>{
+                            console.log(`${attr.value}的watcher(${attr.name})收到了新信息:`,newMessage);
+                            node.innerHTML = newMessage;
+                        })
+                        let vhtmlValue = this.$data[attr.value];
+                        node.innerHTML = vhtmlValue;
+                        // 尝试用正则匹配，只能匹配一层标签，而且标签内的属性暂时不会剔除，TODO：学习正则表达式匹配查找标签&属性
+                        // let reg = /<(?<tagHead>.+?)\>(?<textContent>.+)<\/(?<tagTail>.+?)\>/g;
+                        // let regResult = reg.exec(vhtmlValue).groups;
+                        // let htmlContent = document.createElement(regResult.tagHead);
+                        // console.log(htmlContent);
+                        // htmlContent.textContent = regResult.textContent;
+                        // node.appendChild(htmlContent);
+                        node.removeAttribute(attr.name);
                     }
                 });
                 if (node.childNodes) { this.compileChildNode(node.childNodes); }
@@ -100,7 +114,7 @@ class Dep {
 class Watcher {
     constructor(receiver) {
         Dep.currentWatcher = this;
-        // this.target = target;
+        // this.name = name;
         this.receiver = receiver;
     }
 }
