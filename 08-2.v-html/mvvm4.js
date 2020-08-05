@@ -6,6 +6,7 @@ class KVue{
         this.observer(this.$data);
         this.compile();
     }
+    
     observer(data){
         Object.keys(data).forEach(key=>{
             let value = data[key];
@@ -32,11 +33,9 @@ class KVue{
                     dep.notify(newValue);
                     value = newValue;
                 }
-
             })
         })
     }
-
     // 编译；
     compile(){
         let ele = document.querySelector(this.$options.el);

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./mvvm4.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-html="message"></div>
+
+    </div>
+</body>
+<script>
+let  vm =  new KVue({
+    el:"#app",
+    data:{
+        message:"<h1>数据</h1>"
+    }
+})
+console.log(vm);
+
+setTimeout(()=>{
+    // this.$data 数据代理到this上；
+    vm.message = "修改了";
+    console.log("setTimeout");
+    // vm.$data.message = "修改了";
+},1000)
+
+
+
+
+</script>
+</html>
